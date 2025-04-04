@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://bu0i616vmcqfd"]
+
+[ext_resource type="Texture2D" uid="uid://cel513wglmtm" path="res://assets/blue_beetle.png" id="1_150q7"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_uyjx5"]
+[ext_resource type="Texture2D" uid="uid://brhog1m1jtuq2" path="res://assets/red_beetle.png" id="2_wboyv"]
+[ext_resource type="Texture2D" uid="uid://8moul5k4lp4b" path="res://assets/yellow_beetle.png" id="3_342ub"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ectil"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_150q7")
+}],
+"loop": true,
+"name": &"blue_beetle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wboyv")
+}],
+"loop": true,
+"name": &"red_beetle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_342ub")
+}],
+"loop": true,
+"name": &"yellow_beetle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sr7xg"]
+radius = 21.0238
+
+[node name="enemy" type="RigidBody2D" groups=["bugs"]]
+collision_layer = 2
+gravity_scale = 0.0
+script = ExtResource("1_uyjx5")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ectil")
+animation = &"blue_beetle"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-6, 0)
+shape = SubResource("CircleShape2D_sr7xg")
+
+[node name="visible" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="visible" to="." method="_on_visible_screen_exited"]

@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6cp86wqw38rw"]
+
+[ext_resource type="FontFile" uid="uid://cwbt2ugsjq30h" path="res://font/Dihil.ttf" id="1_n8ywh"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_n34dh"]
+[ext_resource type="StyleBox" uid="uid://c7yjpny6gi3u" path="res://btn_style.tres" id="2_wa2j6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekm7g"]
+bg_color = Color(0.423529, 0.137255, 0.788235, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ltl52"]
+bg_color = Color(0.52549, 0.25098, 0.937255, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="InputEventAction" id="InputEventAction_bg6yl"]
+action = &"start_game"
+
+[sub_resource type="InputEventAction" id="InputEventAction_lxra0"]
+action = &"start_game"
+
+[sub_resource type="Shortcut" id="Shortcut_7auy2"]
+events = [SubResource("InputEventAction_bg6yl"), SubResource("InputEventAction_lxra0")]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_n34dh")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_top = 48.0
+offset_right = 40.0
+offset_bottom = 112.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_n8ywh")
+theme_override_font_sizes/font_size = 64
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -99.0
+offset_right = 152.0
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_n8ywh")
+theme_override_font_sizes/font_size = 64
+text = "dodge the bugs"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="StartButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -96.0
+offset_right = 22.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.878431, 0.764706, 0.176471, 1)
+theme_override_colors/font_hover_color = Color(0.878431, 0.764706, 0.176471, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_n8ywh")
+theme_override_font_sizes/font_size = 45
+theme_override_styles/focus = ExtResource("2_wa2j6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ekm7g")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ltl52")
+theme_override_styles/normal = ExtResource("2_wa2j6")
+shortcut = SubResource("Shortcut_7auy2")
+text = "Start"
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="pressed" from="Control/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
